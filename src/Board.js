@@ -79,12 +79,25 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var rowArr = this.rows()[rowIndex];
+      var rowConflict = rowArr.reduce(function(acc, curr, i) {
+          return acc += curr;
+      },0);
+
+      return (rowConflict > 1);
+      
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      var anyBoard = this.rows()
+
+      for (var i = 0; i < anyBoard.length; i++){
+        if(this.hasRowConflictAt(i)){
+          return true
+        } 
+      }
+      return false
     },
 
 
@@ -94,11 +107,24 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      var count = 0;
+      for (var i = 0; i < this.rows().length; i++) {
+        if (this.rows()[i][colIndex] === 1) {
+           count++;
+        }
+
+      }
+      
+      return (count > 1);
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      for (var i = 0; i < this.rows().length; i++){
+        if(this.hasColConflictAt(i)){
+          return true
+        } 
+      }
       return false; // fixme
     },
 
@@ -109,11 +135,38 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      //create counter variable
+      var counter = 0;
+      //check if value in the first row is 1
+      var x = 0
+      for (var i = majorDiagonalColumnIndexAtFirstRow; i < this.rows().length; i++){
+
+        console.log('the row we are on is ' + i + ' and ' + x + ' is the column');
+
+        if (i >= 0){
+          if (x < this.rows().length) {
+            if (this.rows()[x][i] === 1) {
+            console.log('this means the test we created is working')
+            counter++
+            }
+          }
+        }
+
+        x += 1
+
+        console.log('this means the loop is over and about to start over again.')
+      }
+      
+      return (counter > 1)
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      //loop through board array
+       //run for a 1
+         //if you find a 1, find out the row 0 index of its major diagonal
+          //run major diagonal test
+
       return false; // fixme
     },
 
